@@ -1,0 +1,38 @@
+{
+    "generation_info": {
+        "timestamp": "2025-11-28T09:38:56.023112",
+        "main_model": "gemini-2.5-flash-lite",
+        "generator_version": "1.0.0",
+        "repo_path": "/home/chien/pr-agent",
+        "commit_id": null
+    },
+    "statistics": {
+        "total_components": 298,
+        "leaf_nodes": 63,
+        "max_depth": 2
+    },
+    "files_generated": [
+        "overview.md",
+        "module_tree.json",
+        "first_module_tree.json",
+        "langchain_ai_handler.md",
+        "pr_agent.servers.help.md",
+        "pr_changelog_update.md",
+        "tools.md",
+        "local_git_provider.md",
+        "pr_code_suggestions.md",
+        "pr_description_and_docs.md",
+        "utilities_and_types.md",
+        "ai_handlers.md",
+        "servers.md",
+        "git_providers.md",
+        "secret_providers.md",
+        "pr_reviewer.md",
+        "pr_similar_issue_detection.md",
+        "pr_add_docs.md",
+        "codecommit_provider_components.md",
+        "identity_providers.md",
+        "git_provider_core.md",
+        "pr_code_suggestions_and_review.md"
+    ]
+}
