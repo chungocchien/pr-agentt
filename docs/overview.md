@@ -1,71 +1,159 @@
-# PR-Agentt Module Documentation
+# PR-Agent Repository Overview
 
-## Overview
+The PR-Agent repository provides a powerful AI-driven tool designed to automate and enhance various aspects of the Pull Request (PR) workflow. It leverages large language models (LLMs) to understand code, generate descriptions, suggest improvements, review code, and interact with Git hosting platforms.
 
-The PR-Agentt module is a comprehensive system designed to automate and enhance the process of managing and reviewing pull requests (PRs). It integrates with various Git providers and leverages AI models to provide intelligent insights, suggestions, and actions related to PRs.
+## Purpose of the Repository
 
-## Architecture
+The primary purpose of the PR-Agent is to streamline the PR process by automating repetitive and time-consuming tasks. This includes:
 
-The PR-Agentt module follows a modular architecture, allowing for flexibility and extensibility. The core components include:
+*   **Code Review**: Automatically reviewing code for potential bugs, style issues, and adherence to best practices.
+*   **Description Generation**: Creating comprehensive and informative PR descriptions.
+*   **Documentation Assistance**: Helping to add or improve documentation within code changes.
+*   **Issue Linking**: Identifying similar existing issues or PRs.
+*   **Changelog Updates**: Automatically updating changelog files.
+*   **Configuration Management**: Handling PR-related configurations.
+*   **Interactive Q&A**: Answering questions about the code changes within a PR.
 
-*   **Git Providers**: Interfaces for interacting with different Git platforms (GitHub, GitLab, Bitbucket, Azure DevOps, Gerrit, CodeCommit, local Git).
-*   **AI Handlers**: Abstractions for interacting with various AI models (OpenAI, LiteLLM, LangChain).
-*   **Tools**: Specific functionalities that operate on PRs, such as reviewing, describing, generating suggestions, updating changelogs, and more.
-*   **Secret Providers**: Mechanisms for securely managing API keys and other sensitive information.
-*   **Identity Providers**: Components for verifying user eligibility and managing usage.
-*   **Utilities**: Helper functions and classes for common tasks like token handling, logging, and configuration management.
+The agent aims to improve code quality, reduce review time, and enhance collaboration among development teams.
 
-## Core Functionality
+## End-to-End Architecture
 
-The PR-Agentt module provides the following core functionalities:
+The PR-Agent's architecture is modular, allowing for flexibility and extensibility. It orchestrates interactions between AI models, Git providers, and various utility modules to achieve its goals.
 
-*   **PR Review**: Automated code reviews with feedback on issues, security, tests, and effort estimation.
-*   **PR Description**: Generation of PR titles, types, summaries, walkthroughs, and labels.
-*   **Code Suggestions**: AI-powered suggestions for improving code quality.
-*   **Changelog Updates**: Automatic updates to the CHANGELOG.md file.
-*   **Documentation Generation**: Creation of docstrings and documentation for code changes.
-*   **Issue Analysis**: Finding similar issues and analyzing PRs for ticket compliance.
-*   **Help and Querying**: Answering questions about the PR or its documentation.
-*   **Configuration Management**: Flexible configuration options for customizing tool behavior.
+```mermaid
+graph TD
+    A[User/CI Trigger] --> B(PR Agent Core);
+    B --> C{Git Provider Interface};
+    B --> D{AI Handler Interface};
+    B --> E{Tools};
+    B --> F{Utilities & Types};
+    B --> G{Identity Provider};
+    B --> H{Secret Provider};
+    B --> I{Servers};
 
-## Sub-modules
+    C --> C1(GithubProvider);
+    C --> C2(GitLabProvider);
+    C --> C3(BitbucketProvider);
+    C --> C4(AzureDevopsProvider);
+    C --> C5(CodeCommitProvider);
+    C --> C6(LocalGitProvider);
+    C --> C7(GerritProvider);
+    C --> C8(BitbucketServerProvider);
+    C --> C9(VnptScmProvider);
 
-The following sub-modules contribute to the PR-Agentt's functionality:
+    D --> D1(OpenAIHandler);
+    D --> D2(LangChainOpenAIHandler);
+    D --> D3(LiteLLMAIHandler);
 
-*   **[CLI Arguments](pr_agent.algo.cli_args.md)**: Handles validation of command-line arguments.
-*   **[GitLab Provider](pr_agent.git_providers.gitlab_provider.md)**: Integrates with GitLab for PR operations.
-*   **[Utilities](pr_agent.algo.utils.md)**: Provides various utility functions and classes.
-*   **[Similar Issue Tool](pr_agent.tools.pr_similar_issue.md)**: Finds similar issues in repositories.
-*   **[CodeCommit Client](pr_agent.git_providers.codecommit_client.md)**: AWS CodeCommit client utilities.
-*   **[Local Git Provider](pr_agent.git_providers.local_git_provider.md)**: Handles local Git repository operations.
-*   **[OpenAI AI Handler](pr_agent.algo.ai_handlers.openai_ai_handler.md)**: Interface for OpenAI API.
-*   **[VNPT SCM Provider](pr_agent.git_providers.vnpt_scm_provider.md)**: Integrates with VNPT SCM.
-*   **[CodeCommit Provider](pr_agent.git_providers.codecommit_provider.md)**: Integrates with AWS CodeCommit.
-*   **[Default Identity Provider](pr_agent.identity_providers.default_identity_provider.md)**: Default identity verification.
-*   **[PR Help Message](pr_agent.tools.pr_help_message.md)**: Generates help messages for PRs.
-*   **[Token Handler](pr_agent.algo.token_handler.md)**: Manages token counts for AI models.
-*   **[LiteLLM AI Handler](pr_agent.algo.ai_handlers.litellm_ai_handler.md)**: Interface for LiteLLM.
-*   **[Types](pr_agent.algo.types.md)**: Defines common types and data structures.
-*   **[Bitbucket Server Provider](pr_agent.git_providers.bitbucket_server_provider.md)**: Integrates with Bitbucket Server.
-*   **[Gerrit Server](pr_agent.servers.gerrit_server.md)**: Handles Gerrit requests.
-*   **[Git Provider Base](pr_agent.git_providers.git_provider.md)**: Base class for Git providers.
-*   **[PR Help Docs](pr_agent.tools.pr_help_docs.md)**: Generates documentation-based answers.
-*   **[Base AI Handler](pr_agent.algo.ai_handlers.base_ai_handler.md)**: Abstract base class for AI handlers.
-*   **[PR Line Questions](pr_agent.tools.pr_line_questions.md)**: Handles questions about specific PR lines.
-*   **[Google Cloud Storage Secret Provider](pr_agent.secret_providers.google_cloud_storage_secret_provider.md)**: Retrieves secrets from Google Cloud Storage.
-*   **[Azure DevOps Provider](pr_agent.git_providers.azuredevops_provider.md)**: Integrates with Azure DevOps.
-*   **[PR Update Changelog](pr_agent.tools.pr_update_changelog.md)**: Updates changelogs.
-*   **[PR Generate Labels](pr_agent.tools.pr_generate_labels.md)**: Generates labels for PRs.
-*   **[PR Agent](pr_agent.agent.pr_agent.md)**: Orchestrates the PR management tools.
-*   **[Servers Utilities](pr_agent.servers.utils.md)**: Utility classes for servers.
-*   **[PR Description](pr_agent.tools.pr_description.md)**: Generates PR descriptions.
-*   **[Bitbucket Provider](pr_agent.git_providers.bitbucket_provider.md)**: Integrates with Bitbucket Cloud.
-*   **[Logging](pr_agent.log.__init__.md)**: Logging utilities.
-*   **[PR Code Suggestions](pr_agent.tools.pr_code_suggestions.md)**: Provides AI-powered code suggestions.
+    E --> E1(PRReviewer);
+    E --> E2(PRDescription);
+    E --> E3(PRCodeSuggestions);
+    E --> E4(PRAddDocs);
+    E --> E5(PRGenerateLabels);
+    E --> E6(PRUpdateChangelog);
+    E --> E7(PRSimilarIssue);
+    E --> E8(PRQuestions);
+    E --> E9(PRConfig);
+    E --> E10(PRHelpDocs);
+    E --> E11(PRHelpMessage);
 
-## Visual Documentation
+    F --> F1(TokenHandler);
+    F --> F2(CliArgs);
+    F --> F3(FilePatchInfo);
+    F --> F4(ModelType);
 
-Mermaid diagrams will be generated to illustrate the architecture, component dependencies, and data flow.
+    G --> G1(DefaultIdentityProvider);
 
----
-*Note: This documentation is generated based on the provided code structure and may be updated as the module evolves.*
+    H --> H1(GoogleCloudStorageSecretProvider);
+
+    I --> I1(GerritServer);
+    I --> I2(API Server - Hypothetical);
+
+    B -- Orchestrates --> C;
+    B -- Uses --> D;
+    B -- Utilizes --> E;
+    B -- Relies on --> F;
+    B -- Verifies --> G;
+    B -- Retrieves Secrets via --> H;
+    B -- Exposed via --> I;
+
+    C1 -- Interacts with --> GitHubAPI[GitHub API];
+    C2 -- Interacts with --> GitLabAPI[GitLab API];
+    C3 -- Interacts with --> BitbucketAPI[Bitbucket API];
+    C4 -- Interacts with --> AzureDevOpsAPI[Azure DevOps API];
+    C5 -- Interacts with --> CodeCommitAPI[AWS CodeCommit API];
+    C6 -- Interacts with --> LocalGit[Local Git Commands];
+    C7 -- Interacts with --> GerritAPI[Gerrit API];
+    C8 -- Interacts with --> BitbucketServerAPI[Bitbucket Server API];
+    C9 -- Interacts with --> VnptScmAPI[VNPT SCM API];
+
+    D1 -- Interacts with --> OpenAIAPI[OpenAI API];
+    D2 -- Interacts with --> LangChain[LangChain];
+    D3 -- Interacts with --> LiteLLM[LiteLLM];
+```
+
+## Core Modules Documentation
+
+The PR-Agent is composed of several key modules, each responsible for a specific set of functionalities:
+
+*   **`pr_agent.agent.pr_agent.PRAgent`**: The central orchestrator of the PR-Agent. It integrates all other modules to process requests and execute tasks.
+    *   **Documentation**: [Core Agent Documentation](https://github.com/carl-ai/pr-agent/blob/main/pr_agent/agent/docs.md) (Hypothetical link)
+
+*   **`pr_agent.algo.ai_handlers`**: This module provides the core AI handler functionalities, enabling interaction with various language models. It defines an abstract base class and concrete implementations for different AI services.
+    *   **Documentation**: [AI Handlers Module Documentation](pr_agent/algo/ai_handlers/docs.md)
+    *   **Core Components**:
+        *   `BaseAiHandler`: Abstract base class for AI handlers.
+        *   `LangChainOpenAIHandler`: Handler for OpenAI via LangChain.
+        *   `LiteLLMAIHandler`: Handler for LiteLLM-compatible services.
+        *   `OpenAIHandler`: Direct handler for OpenAI.
+
+*   **`pr_agent.algo` (Utilities and Types)**: This module provides essential utility functions and data types used throughout the PR-Agent.
+    *   **Documentation**: [Utilities and Types Module Documentation](pr_agent/algo/docs.md)
+    *   **Core Components**:
+        *   `CliArgs`: Handles command-line argument validation.
+        *   `TokenHandler`, `TokenEncoder`: Manages tokenization for LLMs.
+        *   `EDIT_TYPE`, `FilePatchInfo`: Defines file edit types and patch information.
+        *   `Range`, `ReasoningEffort`, `PRDescriptionHeader`, `ModelType`, `PRReviewHeader`: Various utility classes and enums.
+
+*   **`pr_agent.git_providers`**: This module abstracts interactions with various Git hosting services (GitHub, GitLab, Bitbucket, Azure DevOps, AWS CodeCommit, Gerrit, etc.).
+    *   **Documentation**: [Git Providers Module Documentation](pr_agent/git_providers/docs.md)
+    *   **Core Components**:
+        *   `GitProvider`: Abstract base class for all Git providers.
+        *   Concrete implementations like `GithubProvider`, `GitLabProvider`, `AzureDevopsProvider`, `CodeCommitProvider`, `LocalGitProvider`, etc.
+        *   Helper classes like `ScopedClonedRepo`.
+
+*   **`pr_agent.identity_providers`**: Manages and verifies the eligibility of users or systems interacting with the PR-Agent.
+    *   **Documentation**: [Identity Providers Module Documentation](pr_agent/identity_providers/docs.md)
+    *   **Core Components**:
+        *   `IdentityProvider`: Abstract base class.
+        *   `DefaultIdentityProvider`: Default implementation.
+        *   `Eligibility`: Enum for eligibility status.
+
+*   **`pr_agent.secret_providers`**: Provides secure storage and retrieval of secrets (e.g., API keys).
+    *   **Documentation**: [Secret Providers Module Documentation](pr_agent/secret_providers/docs.md)
+    *   **Core Components**:
+        *   `SecretProvider`: Abstract base class.
+        *   `GoogleCloudStorageSecretProvider`: Implementation using Google Cloud Storage.
+
+*   **`pr_agent.tools`**: Contains specialized tools for automating specific PR tasks.
+    *   **Documentation**: [The `tools` Module Documentation](pr_agent/tools/docs.md)
+    *   **Core Components**:
+        *   `PRReviewer`: For code reviews.
+        *   `PRDescription`: For generating PR descriptions.
+        *   `PRCodeSuggestions`: For providing code suggestions.
+        *   `PRAddDocs`: For adding documentation.
+        *   `PRGenerateLabels`: For generating PR labels.
+        *   `PRUpdateChangelog`: For updating changelogs.
+        *   `PRSimilarIssue`: For detecting similar issues.
+        *   `PRQuestions`: For answering questions about PRs.
+        *   `PRConfig`: For managing configurations.
+        *   `PRHelpDocs`, `PRHelpMessage`: For providing help and guidance.
+
+*   **`pr_agent.log`**: Handles logging for the PR-Agent.
+    *   **Documentation**: [Logging Module Documentation](pr_agent/log/docs.md) (Hypothetical link)
+
+*   **`pr_agent.servers`**: Provides components for exposing PR-Agent functionality through various server implementations (e.g., Gerrit server).
+    *   **Documentation**: [Servers Module Documentation](pr_agent/servers/docs.md)
+    *   **Core Components**:
+        *   `GerritServer`: Implementation for Gerrit integration.
+        *   Utility functions for rate limiting and request handling.

@@ -1,1 +1,263 @@
-{}
+{
+    "core_agent": {
+        "path": "pr_agent/agent",
+        "components": [
+            "pr_agent.agent.pr_agent.PRAgent"
+        ],
+        "children": {}
+    },
+    "ai_handlers": {
+        "path": "pr_agent/algo/ai_handlers",
+        "components": [
+            "pr_agent.algo.ai_handlers.base_ai_handler.BaseAiHandler",
+            "pr_agent.algo.ai_handlers.langchain_ai_handler.LangChainOpenAIHandler",
+            "pr_agent.algo.ai_handlers.litellm_ai_handler.LiteLLMAIHandler",
+            "pr_agent.algo.ai_handlers.openai_ai_handler.OpenAIHandler"
+        ],
+        "children": {}
+    },
+    "utilities_and_types": {
+        "path": "pr_agent/algo",
+        "components": [
+            "pr_agent.algo.cli_args.CliArgs",
+            "pr_agent.algo.token_handler.TokenHandler",
+            "pr_agent.algo.token_handler.TokenEncoder",
+            "pr_agent.algo.types.EDIT_TYPE",
+            "pr_agent.algo.types.FilePatchInfo",
+            "pr_agent.algo.utils.Range",
+            "pr_agent.algo.utils.ReasoningEffort",
+            "pr_agent.algo.utils.PRDescriptionHeader",
+            "pr_agent.algo.utils.ModelType",
+            "pr_agent.algo.utils.PRReviewHeader"
+        ],
+        "children": {}
+    },
+    "git_providers": {
+        "path": "pr_agent/git_providers",
+        "components": [
+            "pr_agent.git_providers.azuredevops_provider.AzureDevopsProvider",
+            "pr_agent.git_providers.bitbucket_provider.BitbucketProvider",
+            "pr_agent.git_providers.bitbucket_server_provider.BitbucketServerProvider",
+            "pr_agent.git_providers.codecommit_client.CodeCommitPullRequestTarget",
+            "pr_agent.git_providers.codecommit_client.CodeCommitPullRequestResponse",
+            "pr_agent.git_providers.codecommit_client.CodeCommitClient",
+            "pr_agent.git_providers.codecommit_client.CodeCommitDifferencesResponse",
+            "pr_agent.git_providers.codecommit_provider.PullRequestCCMimic",
+            "pr_agent.git_providers.codecommit_provider.CodeCommitFile",
+            "pr_agent.git_providers.codecommit_provider.CodeCommitProvider",
+            "pr_agent.git_providers.gerrit_provider.GerritProvider",
+            "pr_agent.git_providers.git_provider.IncrementalPR",
+            "pr_agent.git_providers.git_provider.ScopedClonedRepo",
+            "pr_agent.git_providers.git_provider.GitProvider",
+            "pr_agent.git_providers.github_provider.GithubProvider",
+            "pr_agent.git_providers.gitlab_provider.GitLabProvider",
+            "pr_agent.git_providers.local_git_provider.LocalGitProvider",
+            "pr_agent.git_providers.local_git_provider.PullRequestMimic",
+            "pr_agent.git_providers.vnpt_scm_provider.VnptScmProvider"
+        ],
+        "children": {
+            "git_provider_core": {
+                "components": [
+                    "pr_agent.git_providers.git_provider.GitProvider",
+                    "pr_agent.git_providers.git_provider.ScopedClonedRepo",
+                    "pr_agent.git_providers.git_provider.IncrementalPR"
+                ],
+                "children": {}
+            },
+            "github_provider": {
+                "components": [
+                    "pr_agent.git_providers.github_provider.GithubProvider"
+                ],
+                "children": {}
+            },
+            "gitlab_provider": {
+                "components": [
+                    "pr_agent.git_providers.gitlab_provider.GitLabProvider"
+                ],
+                "children": {}
+            },
+            "azuredevops_provider": {
+                "components": [
+                    "pr_agent.git_providers.azuredevops_provider.AzureDevopsProvider"
+                ],
+                "children": {}
+            },
+            "bitbucket_provider": {
+                "components": [
+                    "pr_agent.git_providers.bitbucket_provider.BitbucketProvider"
+                ],
+                "children": {}
+            },
+            "bitbucket_server_provider": {
+                "components": [
+                    "pr_agent.git_providers.bitbucket_server_provider.BitbucketServerProvider"
+                ],
+                "children": {}
+            },
+            "gerrit_provider": {
+                "components": [
+                    "pr_agent.git_providers.gerrit_provider.GerritProvider"
+                ],
+                "children": {}
+            },
+            "vnpt_scm_provider": {
+                "components": [
+                    "pr_agent.git_providers.vnpt_scm_provider.VnptScmProvider"
+                ],
+                "children": {}
+            },
+            "codecommit_provider_components": {
+                "components": [
+                    "pr_agent.git_providers.codecommit_client.CodeCommitPullRequestTarget",
+                    "pr_agent.git_providers.codecommit_client.CodeCommitPullRequestResponse",
+                    "pr_agent.git_providers.codecommit_client.CodeCommitClient",
+                    "pr_agent.git_providers.codecommit_client.CodeCommitDifferencesResponse"
+                ],
+                "children": {}
+            },
+            "codecommit_provider_mimic": {
+                "components": [
+                    "pr_agent.git_providers.codecommit_provider.PullRequestCCMimic",
+                    "pr_agent.git_providers.codecommit_provider.CodeCommitFile",
+                    "pr_agent.git_providers.codecommit_provider.CodeCommitProvider"
+                ],
+                "children": {}
+            },
+            "local_git_provider": {
+                "components": [
+                    "pr_agent.git_providers.local_git_provider.LocalGitProvider",
+                    "pr_agent.git_providers.local_git_provider.PullRequestMimic"
+                ],
+                "children": {}
+            }
+        }
+    },
+    "identity_providers": {
+        "path": "pr_agent/identity_providers",
+        "components": [
+            "pr_agent.identity_providers.default_identity_provider.DefaultIdentityProvider",
+            "pr_agent.identity_providers.identity_provider.IdentityProvider",
+            "pr_agent.identity_providers.identity_provider.Eligibility"
+        ],
+        "children": {}
+    },
+    "secret_providers": {
+        "path": "pr_agent/secret_providers",
+        "components": [
+            "pr_agent.secret_providers.google_cloud_storage_secret_provider.GoogleCloudStorageSecretProvider",
+            "pr_agent.secret_providers.secret_provider.SecretProvider"
+        ],
+        "children": {}
+    },
+    "tools": {
+        "path": "pr_agent/tools",
+        "components": [
+            "pr_agent.tools.pr_add_docs.PRAddDocs",
+            "pr_agent.tools.pr_code_suggestions.PRCodeSuggestions",
+            "pr_agent.tools.pr_config.PRConfig",
+            "pr_agent.tools.pr_description.PRDescription",
+            "pr_agent.tools.pr_generate_labels.PRGenerateLabels",
+            "pr_agent.tools.pr_help_docs.PredictionPreparator",
+            "pr_agent.tools.pr_help_docs.PRHelpDocs",
+            "pr_agent.tools.pr_help_message.PRHelpMessage",
+            "pr_agent.tools.pr_line_questions.PR_LineQuestions",
+            "pr_agent.tools.pr_questions.PRQuestions",
+            "pr_agent.tools.pr_reviewer.PRReviewer",
+            "pr_agent.tools.pr_similar_issue.Metadata",
+            "pr_agent.tools.pr_similar_issue.Corpus",
+            "pr_agent.tools.pr_similar_issue.Config",
+            "pr_agent.tools.pr_similar_issue.IssueLevel",
+            "pr_agent.tools.pr_similar_issue.PRSimilarIssue",
+            "pr_agent.tools.pr_similar_issue.Record",
+            "pr_agent.tools.pr_update_changelog.PRUpdateChangelog"
+        ],
+        "children": {
+            "pr_description_and_docs": {
+                "components": [
+                    "pr_agent.tools.pr_description.PRDescription"
+                ],
+                "children": {}
+            },
+            "pr_code_suggestions_and_review": {
+                "components": [
+                    "pr_agent.tools.pr_code_suggestions.PRCodeSuggestions",
+                    "pr_agent.tools.pr_reviewer.PRReviewer"
+                ],
+                "children": {}
+            },
+            "pr_configuration": {
+                "components": [
+                    "pr_agent.tools.pr_config.PRConfig"
+                ],
+                "children": {}
+            },
+            "pr_label_generation": {
+                "components": [
+                    "pr_agent.tools.pr_generate_labels.PRGenerateLabels"
+                ],
+                "children": {}
+            },
+            "pr_help_and_documentation": {
+                "components": [
+                    "pr_agent.tools.pr_help_docs.PredictionPreparator",
+                    "pr_agent.tools.pr_help_docs.PRHelpDocs"
+                ],
+                "children": {}
+            },
+            "pr_help_message": {
+                "components": [
+                    "pr_agent.tools.pr_help_message.PRHelpMessage"
+                ],
+                "children": {}
+            },
+            "pr_question_answering": {
+                "components": [
+                    "pr_agent.tools.pr_line_questions.PR_LineQuestions",
+                    "pr_agent.tools.pr_questions.PRQuestions"
+                ],
+                "children": {}
+            },
+            "pr_changelog_update": {
+                "components": [
+                    "pr_agent.tools.pr_update_changelog.PRUpdateChangelog"
+                ],
+                "children": {}
+            },
+            "pr_similar_issue_detection": {
+                "components": [
+                    "pr_agent.tools.pr_similar_issue.Metadata",
+                    "pr_agent.tools.pr_similar_issue.Corpus",
+                    "pr_agent.tools.pr_similar_issue.Config",
+                    "pr_agent.tools.pr_similar_issue.IssueLevel",
+                    "pr_agent.tools.pr_similar_issue.PRSimilarIssue",
+                    "pr_agent.tools.pr_similar_issue.Record"
+                ],
+                "children": {}
+            },
+            "pr_add_docs": {
+                "components": [
+                    "pr_agent.tools.pr_add_docs.PRAddDocs"
+                ],
+                "children": {}
+            }
+        }
+    },
+    "logging": {
+        "path": "pr_agent/log",
+        "components": [
+            "pr_agent.log.__init__.LoggingFormat"
+        ],
+        "children": {}
+    },
+    "servers": {
+        "path": "pr_agent/servers",
+        "components": [
+            "pr_agent.servers.gerrit_server.Action",
+            "pr_agent.servers.gerrit_server.Item",
+            "pr_agent.servers.help.HelpMessage",
+            "pr_agent.servers.utils.RateLimitExceeded",
+            "pr_agent.servers.utils.DefaultDictWithTimeout"
+        ],
+        "children": {}
+    }
+}
