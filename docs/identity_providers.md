@@ -1,41 +1,51 @@
+# Identity Providers Module Documentation
 
-# Identity Providers Module
+## Introduction
 
-This module provides an abstraction for managing and verifying the eligibility of users or systems interacting with the PR-Agent.
+The `identity_providers` module is responsible for determining the eligibility of a Git provider to use the PR-Agent tool. It provides an abstraction layer for different identity verification methods, allowing the system to control access and track usage. Currently, only a default implementation is provided, which always returns that a Git provider is eligible.
 
-## Architecture Overview
+## Architecture
 
-The identity providers module consists of an abstract base class `IdentityProvider` and a concrete implementation `DefaultIdentityProvider`. This structure allows for future extensions with different identity verification mechanisms.
+The module consists of the following core components:
+
+- `IdentityProvider`: An abstract base class that defines the interface for identity providers.
+- `Eligibility`: An enumeration that represents the possible eligibility states.
+- `DefaultIdentityProvider`: A concrete implementation of `IdentityProvider` that always returns `ELIGIBLE`.
 
 ```mermaid
 classDiagram
     class IdentityProvider {
-        +verify_eligibility(git_provider, git_provier_id, pr_url)
+        <<abstract>>
+        +verify_eligibility(git_provider, git_provider_id, pr_url)
         +inc_invocation_count(git_provider, git_provider_id)
     }
-    class DefaultIdentityProvider
-    class Eligibility
+    class Eligibility {
+        NOT_ELIGIBLE
+        ELIGIBLE
+        TRIAL
+    }
+    class DefaultIdentityProvider {
+        +verify_eligibility(git_provider, git_provider_id, pr_url)
+        +inc_invocation_count(git_provider, git_provider_id)
+    }
 
     IdentityProvider <|-- DefaultIdentityProvider
-    IdentityProvider ..> Eligibility : uses
+    IdentityProvider -- Eligibility
 ```
 
-## Core Components
+## Functionality
 
-### IdentityProvider
+The `identity_providers` module provides the following functionality:
 
-This is an abstract base class that defines the interface for all identity providers. It specifies methods for verifying user eligibility and tracking invocation counts.
+- **Eligibility Verification:** Determines whether a given Git provider is eligible to use the PR-Agent tool.
+- **Invocation Counting:** Tracks the number of times the PR-Agent tool is invoked for a given Git provider.
 
-### DefaultIdentityProvider
+### Sub-modules
 
-This is a concrete implementation of the `IdentityProvider` interface. It provides a default behavior for verifying eligibility, currently always returning `ELIGIBLE` and does not track invocation counts.
+Currently, the module only contains a default implementation. Future implementations may include more sophisticated identity verification methods.
 
-### Eligibility Enum
+- **DefaultIdentityProvider:** This sub-module provides a default implementation of the `IdentityProvider` interface. It always returns `ELIGIBLE` for any Git provider. See [DefaultIdentityProvider Documentation](default_identity_provider.md) for more details.
 
-An enumeration representing the different eligibility statuses a user or system can have: `NOT_ELIGIBLE`, `ELIGIBLE`, and `TRIAL`.
+## Integration with Other Modules
 
-## Related Modules
-
-*   [AI Handlers](ai_handlers.md)
-*   [Git Providers](git_providers.md)
-*   [Secret Providers](secret_providers.md)
+The `identity_providers` module is used by the core agent to verify the eligibility of a Git provider before processing a pull request. It interacts with the `git_providers` module to obtain information about the Git provider and the pull request.

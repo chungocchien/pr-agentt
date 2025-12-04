@@ -1,7 +1,7 @@
 {
     "generation_info": {
-        "timestamp": "2025-12-01T10:49:13.773700",
-        "main_model": "gemini-2.5-flash-lite",
+        "timestamp": "2025-12-04T10:37:43.631328",
+        "main_model": "gemini-2.0-flash",
         "generator_version": "1.0.0",
         "repo_path": "/home/chien/pr-agentt",
         "commit_id": null
@@ -15,24 +15,20 @@
         "overview.md",
         "module_tree.json",
         "first_module_tree.json",
-        "langchain_ai_handler.md",
-        "pr_agent.servers.help.md",
-        "pr_changelog_update.md",
+        "pr_similar_issue.md",
+        "codecommit_provider_and_client.md",
+        "litellm_ai_handler.md",
+        "default_identity_provider.md",
         "tools.md",
-        "local_git_provider.md",
-        "pr_code_suggestions.md",
-        "pr_description_and_docs.md",
+        "pr_config.md",
+        "openai_ai_handler.md",
+        "core_agent.md",
         "utilities_and_types.md",
+        "pr_update_changelog.md",
         "ai_handlers.md",
-        "servers.md",
         "git_providers.md",
         "secret_providers.md",
-        "pr_reviewer.md",
-        "pr_similar_issue_detection.md",
-        "pr_add_docs.md",
-        "codecommit_provider_components.md",
-        "identity_providers.md",
-        "git_provider_core.md",
-        "pr_code_suggestions_and_review.md"
+        "CodeCommitProvider Detailed Documentation.md",
+        "identity_providers.md"
     ]
 }
